@@ -1,6 +1,6 @@
 import test from 'ava';
 import { initFakeEnvVariables, PARSED_VALUES } from './utils';
-import parseEnvVars from '../src';
+import parseEnvVars from '../dist';
 
 initFakeEnvVariables();
 

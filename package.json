@@ -13,7 +13,9 @@
   "pre-push": {
     "silent": false,
     "run": [
-      "eslint:check"
+      "eslint:check",
+      "npm run compile",
+      "npm test"
     ]
   },
   "ava": {
