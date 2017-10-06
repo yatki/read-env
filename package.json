@@ -8,16 +8,12 @@
     "eslint:check": "eslint . --color",
     "compile": "babel --presets es2015 -d dist/ src/",
     "test": "ava",
-    "push-again": "git push --no-verify",
     "prepublish": "npm run compile && npm test"
   },
   "pre-push": {
     "silent": false,
     "run": [
-      "eslint:check",
-      "compile",
-      "test",
-      "push-again"
+      "eslint:check"
     ]
   },
   "ava": {
