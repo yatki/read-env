@@ -24,6 +24,7 @@ exports.default = function (options) {
     transformer: 'camelcase',
     parse: {
       object: true,
+      array: true,
       bool: true,
       int: true,
       float: true
@@ -51,7 +52,7 @@ exports.default = function (options) {
     var optionValue = process.env[key];
     var optionKey = key;
 
-    if (options.includePrefix) {
+    if (!options.includePrefix) {
       optionKey = optionKey.replace('' + options.prefix, '');
     }
 
@@ -67,9 +68,11 @@ exports.default = function (options) {
     if (options.parse) {
       if (options.parse.object && optionValue.indexOf('{') === 0) {
         optionValue = JSON.parse(optionValue);
+      } else if (options.parse.array && optionValue.indexOf('[') === 0) {
+        optionValue = JSON.parse(optionValue);
       } else if (options.parse.int && /^\d+$/.test(optionValue)) {
         optionValue = parseInt(optionValue, 10);
-      } else if (options.parse.float && /^-?\d*(\.\d+)?$/.test(optionValue)) {
+      } else if (options.parse.float && /^-?\d*(\.\d+)$/.test(optionValue)) {
         optionValue = parseFloat(optionValue);
       } else if (options.parse.bool && (optionValue.toLowerCase() === 'true' || optionValue.toLowerCase() === 'false')) {
         optionValue = optionValue.toLowerCase() === 'true';
