@@ -1,0 +1,48 @@
+{
+  "name": "parse-env-vars",
+  "version": "1.0.0",
+  "description": "Parse Environment Variables into JSON object",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "babel --presets es2015 -d dist/ src/",
+    "test": "ava",
+    "prepublish": "npm run compile && npm test"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.spec.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "babel": "inherit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yatki/parse-env-vars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yatki/parse-env-vars/issues"
+  },
+  "homepage": "https://github.com/yatki/parse-env-vars#readme",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "better-npm-run": "^0.1.0",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "dependencies": {
+    "camelcase": "^4.1.0",
+    "deepmerge": "^1.5.2",
+    "lodash": "^4.17.4"
+  }
+}
