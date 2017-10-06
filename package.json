@@ -14,8 +14,8 @@
     "silent": false,
     "run": [
       "eslint:check",
-      "npm run compile",
-      "npm test"
+      "compile",
+      "test"
     ]
   },
   "ava": {
