@@ -44,7 +44,7 @@ const cleanFakeEnvVariables = (vars = TEST_VARIABLES) => {
 };
 
 const initFakeEnvVariables = (vars = TEST_VARIABLES) => {
-  cleanFakeEnvVariables(vars);
+  cleanFakeEnvVariables();
 
   const testVariableKeys = Object.keys(vars);
   testVariableKeys.forEach((key) => {
@@ -56,4 +56,5 @@ export {
   TEST_VARIABLES,
   PARSED_VALUES,
   initFakeEnvVariables,
+  cleanFakeEnvVariables,
 };
