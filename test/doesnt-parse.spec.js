@@ -1,8 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, TEST_VARIABLES, PARSED_VALUES } from './utils';
+import { initFakeEnvVariables, cleanFakeEnvVariables, TEST_VARIABLES, PARSED_VALUES } from './utils';
 import readEnv from '../dist';
 
-initFakeEnvVariables();
+test.beforeEach(() => {
+  initFakeEnvVariables();
+});
 
 test('Doesn\'t parse at all', (t) => {
   const options = readEnv({
@@ -133,4 +135,8 @@ test('Doesn\'t parse invalid Array', (t) => {
   const error = t.throws(() => readEnv('EXAMPLE'));
   t.is(error.message, 'Environment Variable "EXAMPLE_ARRAY_BROKEN" has invalid JSON input.');
   delete process.env.EXAMPLE_OBJECT_BROKEN;
+});
+
+test.afterEach(() => {
+  cleanFakeEnvVariables();
 });

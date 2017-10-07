@@ -1,8 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, TEST_VARIABLES, PARSED_VALUES } from './utils';
+import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
 import readEnv from '../dist';
 
-initFakeEnvVariables();
+test.beforeEach(() => {
+  initFakeEnvVariables();
+});
 
 function ucfirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -53,4 +55,8 @@ test('Includes prefix', (t) => {
   });
 
   t.true(options.exampleConvertsCamelcase === 'camelCase');
+});
+
+test.afterEach(() => {
+  cleanFakeEnvVariables();
 });

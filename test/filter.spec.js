@@ -1,8 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, PARSED_VALUES } from './utils';
+import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
 import readEnv from '../dist';
 
-initFakeEnvVariables();
+test.beforeEach(() => {
+  initFakeEnvVariables();
+});
 
 test('Filters', (t) => {
   const options = readEnv({
@@ -36,3 +38,6 @@ test('Filters with function and removes prefix parameter', (t) => {
   t.is(options.string, PARSED_VALUES.EXAMPLE_SUB_STRING);
 });
 
+test.afterEach(() => {
+  cleanFakeEnvVariables();
+});

@@ -2,7 +2,9 @@ import test from 'ava';
 import { initFakeEnvVariables, TEST_VARIABLES } from './utils';
 import readEnv from '../dist';
 
-initFakeEnvVariables();
+test.beforeEach(() => {
+  initFakeEnvVariables();
+});
 
 test('Returns an object', (t) => {
   const options = readEnv();

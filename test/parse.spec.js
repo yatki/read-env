@@ -1,8 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, PARSED_VALUES } from './utils';
+import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
 import readEnv from '../dist';
 
-initFakeEnvVariables();
+test.beforeEach(() => {
+  initFakeEnvVariables();
+});
 
 test('Parses Object', (t) => {
   const options = readEnv('EXAMPLE');
@@ -28,4 +30,8 @@ test('Parses Int', (t) => {
 test('Parses Float', (t) => {
   const options = readEnv('EXAMPLE');
   t.true(options.float === PARSED_VALUES.EXAMPLE_FLOAT);
+});
+
+test.afterEach(() => {
+  cleanFakeEnvVariables();
 });
