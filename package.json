@@ -22,12 +22,29 @@
   "homepage": "https://github.com/yatki/read-env",
   "scripts": {
     "preversion": "npm test",
-    "prepublish": "npm run compile && npm test",
+    "prepublish": "npm run build && npm test",
     "eslint:fix": "eslint . --fix --color",
     "eslint:check": "eslint . --color",
-    "build": "set BABEL_ENV=production && babel --presets env -d dist/ src/",
-    "compile": "babel --presets env -d dist/ src/",
+    "build": "better-npm-run build",
+    "compile": "better-npm-run compile",
+    "report": "nyc report --repoter=html",
     "test": "nyc ava --verbose"
+  },
+  "betterScripts": {
+    "build": {
+      "command": "babel --presets env -d dist/ src/",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_ENV": "production"
+      }
+    },
+    "compile": {
+      "command": "babel --presets env -d dist/ src/",
+      "env": {
+        "NODE_ENV": "development",
+        "BABEL_ENV": "development"
+      }
+    }
   },
   "pre-push": {
     "silent": false,
