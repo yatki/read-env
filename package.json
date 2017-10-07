@@ -1,14 +1,33 @@
 {
-  "name": "parse-env-vars",
+  "name": "read-env",
   "version": "1.0.0",
-  "description": "Parse Environment Variables into JSON object",
+  "description": "Convert environment variables into JSON object",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:yatki/read-env.git"
+  },
+  "keywords": [
+    "env",
+    "environment variables",
+    "parse",
+    "JSON.parse",
+    "read"
+  ],
+  "author": "Mehmet Yatkı",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yatki/read-env/issues"
+  },
+  "homepage": "https://github.com/yatki/read-env",
   "scripts": {
+    "preversion": "npm test",
+    "prepublish": "npm run compile && npm test",
     "eslint:fix": "eslint . --fix --color",
     "eslint:check": "eslint . --color",
-    "compile": "babel --presets es2015 -d dist/ src/",
-    "test": "ava",
-    "prepublish": "npm run compile && npm test"
+    "build": "set BABEL_ENV=production && babel --presets env -d dist/ src/",
+    "compile": "babel --presets env -d dist/ src/",
+    "test": "nyc ava --verbose"
   },
   "pre-push": {
     "silent": false,
@@ -26,27 +45,17 @@
     ],
     "babel": "inherit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yatki/parse-env-vars.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yatki/parse-env-vars/issues"
-  },
-  "homepage": "https://github.com/yatki/parse-env-vars#readme",
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "better-npm-run": "^0.1.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "nyc": "^11.2.1",
     "pre-push": "^0.1.1"
   },
   "dependencies": {

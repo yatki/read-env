@@ -9,6 +9,10 @@ const TEST_VARIABLES = {
   EXAMPLE_CONVERTS_CAMELCASE: 'camelCase',
   EXAMPLE_CONVERTS_LOWERCASE: 'lowercase',
   EXAMPLE_converts_uppercase: 'uppercase',
+  EXAMPLE_EXAMPLE_KEY: 'exampleExample',
+  EXAMPLE_DoNT_TRanSFoRM_ME: 'dontTransform',
+  EXAMPLE_SUB_INT: '7',
+  EXAMPLE_SUB_STRING: 'subExample',
 };
 
 const PARSED_VALUES = {
@@ -22,12 +26,22 @@ const PARSED_VALUES = {
   EXAMPLE_CONVERTS_CAMELCASE: 'camelCase',
   EXAMPLE_CONVERTS_LOWERCASE: 'lowercase',
   EXAMPLE_converts_uppercase: 'uppercase',
+  EXAMPLE_EXAMPLE_KEY: 'exampleExample',
+  EXAMPLE_DoNT_TRanSFoRM_ME: 'dontTransform',
+  EXAMPLE_SUB_INT: 7,
+  EXAMPLE_SUB_STRING: 'subExample',
 };
 
-const initFakeEnvVariables = () => {
-  const testVariableKeys = Object.keys(TEST_VARIABLES);
+const initFakeEnvVariables = (vars = TEST_VARIABLES) => {
+  if (!process) {
+    process = {
+      env: {},
+    };
+  }
+
+  const testVariableKeys = Object.keys(vars);
   testVariableKeys.forEach((key) => {
-    process.env[key] = TEST_VARIABLES[key];
+    process.env[key] = vars[key];
   });
 };
 

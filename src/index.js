@@ -1,12 +1,12 @@
 import camelcase from 'camelcase';
 import merge from 'lodash/merge';
 
-export default (options, transformer = 'camelcase') => {
+export default (options, transformKey = 'camelcase') => {
   const variables = {};
   const defaultOptions = {
     prefix: null,
-    includePrefix: false,
-    transformer: 'camelcase',
+    removePrefix: true,
+    transformKey: 'camelcase',
     parse: {
       object: true,
       array: true,
@@ -14,12 +14,13 @@ export default (options, transformer = 'camelcase') => {
       int: true,
       float: true,
     },
+    filter: null,
   };
 
   if (typeof options === 'string') {
     options = {
       prefix: options,
-      transformer,
+      transformKey,
     };
   }
 
@@ -27,7 +28,9 @@ export default (options, transformer = 'camelcase') => {
 
   let keys = Object.keys(process.env);
 
-  if (options.prefix) {
+  if (options.filter) {
+    keys = keys.filter(options.filter);
+  } else if (options.prefix) {
     keys = keys.filter(key => key.indexOf(options.prefix) === 0);
   }
 
@@ -35,24 +38,31 @@ export default (options, transformer = 'camelcase') => {
     let optionValue = process.env[key];
     let optionKey = key;
 
-    if (!options.includePrefix) {
-      optionKey = optionKey.replace(`${options.prefix}`, '');
+    if (options.removePrefix) {
+      optionKey = optionKey.replace(`${options.prefix}_`, '');
     }
 
-    if (transformer === 'camelcase') {
+    if (options.transformKey === 'camelcase') {
       optionKey = camelcase(optionKey);
-    } else if (transformer === 'lowercase' || transformer === 'uppercase') {
-      optionKey = transformer === 'lowercase' ? optionKey.toLowerCase() : optionKey.toUpperCase();
-      optionKey = optionKey.indexOf('_') === 0 ? optionKey.slice(1) : optionKey;
-    } else if (typeof transformer === 'function') {
-      optionKey = transformer(optionKey);
+    } else if (options.transformKey === 'lowercase' || options.transformKey === 'uppercase') {
+      optionKey = options.transformKey === 'lowercase' ? optionKey.toLowerCase() : optionKey.toUpperCase();
+    } else if (typeof options.transformKey === 'function') {
+      optionKey = options.transformKey(optionKey);
     }
 
     if (options.parse) {
       if (options.parse.object && optionValue.indexOf('{') === 0) {
-        optionValue = JSON.parse(optionValue);
+        try {
+          optionValue = JSON.parse(optionValue);
+        } catch (e) {
+          throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+        }
       } else if (options.parse.array && optionValue.indexOf('[') === 0) {
-        optionValue = JSON.parse(optionValue);
+        try {
+          optionValue = JSON.parse(optionValue);
+        } catch (e) {
+          throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+        }
       } else if (options.parse.int && /^\d+$/.test(optionValue)) {
         optionValue = parseInt(optionValue, 10);
       } else if (options.parse.float && /^-?\d*(\.\d+)$/.test(optionValue)) {

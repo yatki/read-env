@@ -1,0 +1,14 @@
+.idea/
+node_modules/
+test/
+src/
+coverage/
+.nyc_output/
+
+.babelrc
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+package-lock.json
+yarn.lock
