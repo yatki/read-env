@@ -1,6 +1,10 @@
 # read-env
 > Convert environment variables into JSON object with parsed values.
 
+[![NPM version](https://badge.fury.io/js/read-env.svg)](https://www.npmjs.com/package/read-env)
+[![Build Status](https://travis-ci.org/yatki/read-env.svg?branch=master)](https://travis-ci.org/yatki/read-env)
+[![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master)](https://coveralls.io/github/yatki/read-env?branch=master)
+
 ## Install
 
 ```
