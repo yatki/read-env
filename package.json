@@ -28,7 +28,7 @@
     "build": "better-npm-run build",
     "compile": "better-npm-run compile",
     "report": "nyc report --reporter=html",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test": "nyc ava --verbose"
   },
   "betterScripts": {
