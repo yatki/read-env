@@ -32,12 +32,19 @@ const PARSED_VALUES = {
   EXAMPLE_SUB_STRING: 'subExample',
 };
 
+if (!process) {
+  process = { env: {} };
+}
+
+const cleanFakeEnvVariables = (vars = TEST_VARIABLES) => {
+  const testVariableKeys = Object.keys(vars);
+  testVariableKeys.forEach((key) => {
+    delete process.env[key];
+  });
+};
+
 const initFakeEnvVariables = (vars = TEST_VARIABLES) => {
-  if (!process) {
-    process = {
-      env: {},
-    };
-  }
+  cleanFakeEnvVariables(vars);
 
   const testVariableKeys = Object.keys(vars);
   testVariableKeys.forEach((key) => {
