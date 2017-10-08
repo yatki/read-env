@@ -116,7 +116,7 @@ const nightmare = Nightmare({
   width:  process.env.X_NIGHTMARE_WIDTH || 1280,
   height:  process.env.X_NIGHTMARE_HEIGHT || 720,
   typeInterval:  process.env.X_NIGHTMARE_TYPE_INTERVAL || 50,
-  //... other properties goes forever
+  //... other properties go forever
 });
 ```
 
