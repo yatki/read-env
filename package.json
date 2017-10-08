@@ -1,6 +1,6 @@
 {
   "name": "read-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert environment variables into JSON object",
   "main": "dist/index.js",
   "repository": {
