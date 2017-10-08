@@ -128,8 +128,6 @@ import readEnv from 'read-env';
 const nightmareConfig = readEnv('X_NIGHTMARE');
 const nightmare = Nightmare(nightmareConfig);
 ```
-
-## Contribution
         
 ## LICENCE
 
