@@ -106,7 +106,7 @@ Available Config Options:
 ## Use Case Example
 Recently, I used [Nightmare](https://github.com/segmentio/nightmare) for *acceptance testing* and had several environments which have different configurations.
  
-Instead of doing something like below:
+Instead of writing a code like below:
 
 ```javascript
 import Nightmare from 'nightmare';
@@ -120,7 +120,7 @@ const nightmare = Nightmare({
 });
 ```
 
-I'm doing this:
+I wrote this, and nightmare is fully configurable with environment variables :)
 ```javascript
 import Nightmare from 'nightmare';
 import readEnv from 'read-env';
