@@ -83,6 +83,7 @@
     "coveralls": "^3.0.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-ava": "^4.2.2",
     "eslint-plugin-import": "^2.7.0",
     "nyc": "^11.2.1",
     "pre-push": "^0.1.1"
