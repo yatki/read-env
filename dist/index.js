@@ -4,13 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _camelcase = require('camelcase');
 
 var _camelcase2 = _interopRequireDefault(_camelcase);
-
-var _merge = require('lodash/merge');
-
-var _merge2 = _interopRequireDefault(_merge);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,8 +36,10 @@ exports.default = function (options) {
       transformKey: transformKey
     };
   }
-
-  options = (0, _merge2.default)(defaultOptions, options);
+  if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' && _typeof(options.parse) === 'object') {
+    options.parse = Object.assign({}, defaultOptions.parse, options.parse);
+  }
+  options = Object.assign({}, defaultOptions, options);
 
   var keys = Object.keys(process.env);
 

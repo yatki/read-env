@@ -90,7 +90,6 @@
   },
   "dependencies": {
     "camelcase": "^4.1.0",
-    "deepmerge": "^1.5.2",
-    "lodash": "^4.17.4"
+    "deepmerge": "^1.5.2"
   }
 }

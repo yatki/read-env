@@ -1,5 +1,4 @@
 import camelcase from 'camelcase';
-import merge from 'lodash/merge';
 
 export default (options, transformKey = 'camelcase') => {
   const variables = {};
@@ -23,8 +22,10 @@ export default (options, transformKey = 'camelcase') => {
       transformKey,
     };
   }
-
-  options = merge(defaultOptions, options);
+  if (typeof options === 'object' && typeof options.parse === 'object') {
+    options.parse = Object.assign({}, defaultOptions.parse, options.parse);
+  }
+  options = Object.assign({}, defaultOptions, options);
 
   let keys = Object.keys(process.env);
 
