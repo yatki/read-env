@@ -99,6 +99,7 @@ Available Config Options:
       - `int` (type: *bool*, default: *true*): parse digits into integer (value consists of only numbers).
       - `float` (type: *bool*, default: *true*): parse decimals into integer (value consists of only numbers with decimal point).
       - `bool` (type: *bool*, default: *true*): parse if string equals to *'true'* or *'false'*.
+- `ignoreInvalidJSON` (type: *bool*, default: *true*): throws exception when value is not a valid JSON input (parse.object or parse.array options must be set to true).
 - `filter` (type: *null*|*function*, default: *null*): filters environment variables (overrides prefix rule).
   1. `null`, don't filter varaibles.
   1. `fn(envVarName, index)`, custom filter function (*envVarName* will be provided without any transformation).
