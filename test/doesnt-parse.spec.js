@@ -122,7 +122,11 @@ test('Doesn\'t parse invalid Object', (t) => {
     EXAMPLE_OBJECT_BROKEN: '{"prop"',
   });
 
-  const error = t.throws(() => readEnv('EXAMPLE'));
+  const error = t.throws(() => readEnv({
+    prefix: 'EXAMPLE',
+    ignoreInvalidJSON: false,
+  }));
+
   t.is(error.message, 'Environment Variable "EXAMPLE_OBJECT_BROKEN" has invalid JSON input.');
   delete process.env.EXAMPLE_OBJECT_BROKEN;
 });
@@ -132,7 +136,11 @@ test('Doesn\'t parse invalid Array', (t) => {
     EXAMPLE_ARRAY_BROKEN: '[1,2,3, "string"',
   });
 
-  const error = t.throws(() => readEnv('EXAMPLE'));
+  const error = t.throws(() => readEnv({
+    prefix: 'EXAMPLE',
+    ignoreInvalidJSON: false,
+  }));
+
   t.is(error.message, 'Environment Variable "EXAMPLE_ARRAY_BROKEN" has invalid JSON input.');
   delete process.env.EXAMPLE_OBJECT_BROKEN;
 });

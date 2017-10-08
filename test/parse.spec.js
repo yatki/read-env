@@ -32,6 +32,26 @@ test('Parses Float', (t) => {
   t.true(options.float === PARSED_VALUES.EXAMPLE_FLOAT);
 });
 
+test('Ignores invalid Object', (t) => {
+  const local = {
+    EXAMPLE_OBJECT_BROKEN: '{"prop"',
+  };
+  initFakeEnvVariables(local);
+
+  const options = readEnv('EXAMPLE');
+  t.is(options.objectBroken, local.EXAMPLE_OBJECT_BROKEN);
+});
+
+test('Parses invalid Array', (t) => {
+  const local = {
+    EXAMPLE_ARRAY_BROKEN: '[1,2,3, "string"',
+  };
+  initFakeEnvVariables(local);
+
+  const options = readEnv('EXAMPLE');
+  t.is(options.arrayBroken, local.EXAMPLE_ARRAY_BROKEN);
+});
+
 test.afterEach(() => {
   cleanFakeEnvVariables();
 });

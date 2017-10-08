@@ -4,7 +4,7 @@ export default (options, transformKey = 'camelcase') => {
   const variables = {};
   const defaultOptions = {
     prefix: null,
-    removePrefix: true,
+    includePrefix: false,
     transformKey: 'camelcase',
     parse: {
       object: true,
@@ -13,6 +13,7 @@ export default (options, transformKey = 'camelcase') => {
       int: true,
       float: true,
     },
+    ignoreInvalidJSON: true,
     filter: null,
   };
 
@@ -39,8 +40,9 @@ export default (options, transformKey = 'camelcase') => {
     let optionValue = process.env[key];
     let optionKey = key;
 
-    if (options.removePrefix) {
-      optionKey = optionKey.replace(`${options.prefix}_`, '');
+    if (!options.includePrefix) {
+      optionKey = optionKey.replace(`${options.prefix}`, '');
+      optionKey = optionKey.indexOf('_') === 0 ? optionKey.slice(1) : optionKey;
     }
 
     if (options.transformKey === 'camelcase') {
@@ -56,13 +58,17 @@ export default (options, transformKey = 'camelcase') => {
         try {
           optionValue = JSON.parse(optionValue);
         } catch (e) {
-          throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+          if (!options.ignoreInvalidJSON) {
+            throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+          }
         }
       } else if (options.parse.array && optionValue.indexOf('[') === 0) {
         try {
           optionValue = JSON.parse(optionValue);
         } catch (e) {
-          throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+          if (!options.ignoreInvalidJSON) {
+            throw Error(`Environment Variable "${key}" has invalid JSON input.`);
+          }
         }
       } else if (options.parse.int && /^\d+$/.test(optionValue)) {
         optionValue = parseInt(optionValue, 10);

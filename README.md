@@ -72,7 +72,7 @@ function ucfirst(string) {
 
 const options = readEnv({
   prefix: 'EXAMPLE',
-  removePrefix: true,
+  includePrefix: false,
   transformKey: ucfirst,
   parse: {
     array: false, //not gonna parse arrays
@@ -84,13 +84,13 @@ const options = readEnv({
 
 Available Config Options:
 - `prefix` (type: *string*, default: *null*): filters environment variables by prefix
-- `removePrefix` (type: *bool*, default: *true*): set false if you want to keep prefix in property names.
+- `includePrefix` (type: *bool*, default: *false*): set true if you want to keep prefix in property names.
 - `transformKey` (type: *null*|*string*|*function*, default: *'camelcase'*): transform environment variable name.
   1. `null`, doesn't transform the environment variable name.
   1. `camelcase`, transforms variable name to camelCase.
   1. `lowercase`, transforms variable name to lowercase.
   1. `uppercase`, transforms variable name to UPPERCASE.
-  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided without prefix, if *removePrefix* is *true*)
+  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided with prefix, if *includePrefix* is *true*)
 - `parse` (type: *bool*|*object*, default: *object*):
   1. `false`: returns raw environment variable value
   1. `{}`: allows you to define which value types are going to be parsed.
@@ -128,6 +128,8 @@ import readEnv from 'read-env';
 const nightmareConfig = readEnv('X_NIGHTMARE');
 const nightmare = Nightmare(nightmareConfig);
 ```
+
+## Contribution
         
 ## LICENCE
 

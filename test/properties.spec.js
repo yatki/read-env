@@ -51,7 +51,7 @@ test('Doesn\'t transform key', (t) => {
 test('Includes prefix', (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
-    removePrefix: false,
+    includePrefix: true,
   });
 
   t.true(options.exampleConvertsCamelcase === 'camelCase');

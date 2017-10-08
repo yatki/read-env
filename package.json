@@ -89,7 +89,6 @@
     "pre-push": "^0.1.1"
   },
   "dependencies": {
-    "camelcase": "^4.1.0",
-    "deepmerge": "^1.5.2"
+    "camelcase": "^4.1.0"
   }
 }
