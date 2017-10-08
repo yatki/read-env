@@ -27,9 +27,9 @@
     "eslint:check": "eslint . --color",
     "build": "better-npm-run build",
     "compile": "better-npm-run compile",
-    "report": "nyc report --reporter=html",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "test": "nyc ava --verbose"
+    "test": "nyc ava --verbose",
+    "test:coverage": "npm run compile && npm test",
+    "coveralls": "nyc npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
   },
   "betterScripts": {
     "build": {
