@@ -54,13 +54,49 @@ You can pass a string prefix as first paremeter like below:
 
 ```javascript
 const options = readEnv('EXAMPLE');
+// Output:
+/**
+{ 
+  arrayKey: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
+  falseKey: false,
+  floatKey: 5.2,
+  intKey: 5,
+  objectKey: { prop: 'value' },
+  stringKey: 'example',
+  trueKey: true 
+}
+*/
+
 const optionsLower = readEnv('EXAMPLE', 'lowercase');
+// Output:
+/**
+{ 
+  array_key: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
+  false_key: false,
+  float_key: 5.2,
+  int_key: 5,
+  object_key: { prop: 'value' },
+  string_key: 'example',
+  true_key: true 
+}
+*/
 
 function ucfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 const optionsUcfirst = readEnv('EXAMPLE', ucfirst);
-
+// Output:
+/**
+{ 
+  Array_key: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
+  False_key: false,
+  Float_key: 5.2,
+  Int_key: 5,
+  Object_key: { prop: 'value' },
+  String_key: 'example',
+  True_key: true 
+}
+*/
 ```
 
 ### `readEnv(config)`
