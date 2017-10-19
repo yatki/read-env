@@ -117,6 +117,13 @@ const options = readEnv({
 });
 ```
 
+ You can also pass your own filter function:
+```javascript
+const options = readEnv({
+  filter: (envVarName) => envVarName.indexOf('EXAMPLE') > 0 && envVarName === 'ANOTHER_REQUIRED_KEY',
+});
+```
+
 ## Config
 
 Available Config Options:
