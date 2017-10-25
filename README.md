@@ -130,7 +130,7 @@ Available Config Options:
 - `prefix` (type: *string*, default: *null*): filters environment variables by prefix
 - `includePrefix` (type: *bool*, default: *false*): set true if you want to keep prefix in property names.
 - `transformKey` (type: *null*|*string*|*function*, default: *'camelcase'*): transform environment variable name.
-  1. `null`, doesn't transform the environment variable name.
+  1. `false`, doesn't transform the environment variable name.
   1. `camelcase`, transforms variable name to camelCase.
   1. `lowercase`, transforms variable name to lowercase.
   1. `uppercase`, transforms variable name to UPPERCASE.
