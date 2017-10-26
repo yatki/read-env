@@ -167,6 +167,16 @@ const nightmareConfig = readEnv('X_NIGHTMARE');
 const nightmare = Nightmare(nightmareConfig);
 ```
         
+## Contribution
+
+As always, I'm open to any contribution and would like to hear your feedback. 
+
+### Just an important reminder:
+
+If you are planning to contribute to **any** open source project, 
+before starting development, please **always open an issue** and **make a proposal first**. 
+This will save you from working on features that are eventually going to be rejected for some reason.
+
 ## LICENCE
 
 MIT (c) 2017 Mehmet Yatkı
