@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/yatki/read-env.svg?branch=master)](https://travis-ci.org/yatki/read-env)
 [![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master&)](https://coveralls.io/github/yatki/read-env?branch=master)
 [![npm](https://img.shields.io/npm/dt/read-env.svg)](https://www.npmjs.com/package/read-env)
+[![Dependencies](https://david-dm.org/yatki/read-env/status.svg)](https://david-dm.org/yatki/read-env)
 
 ## Install
 
