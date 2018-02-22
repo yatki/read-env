@@ -139,7 +139,7 @@ Available Config Options:
   1. `camelcase`, transforms variable name to camelCase.
   1. `lowercase`, transforms variable name to lowercase.
   1. `uppercase`, transforms variable name to UPPERCASE.
-  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided **with** prefix, if *includePrefix* is *true*)
+  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided **with** prefix, **if** *includePrefix* is *true*)
 - `parse` (type: *bool*|*object*, default: *object*):
   1. `false`: returns raw environment variable value
   1. `{}`: allows you to define which value types are going to be parsed.
