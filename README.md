@@ -12,6 +12,10 @@
 ```
 npm install --save read-env
 ```
+or
+```
+yarn add read-env
+```
 
 ## Basic Example
 
@@ -135,7 +139,7 @@ Available Config Options:
   1. `camelcase`, transforms variable name to camelCase.
   1. `lowercase`, transforms variable name to lowercase.
   1. `uppercase`, transforms variable name to UPPERCASE.
-  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided with prefix, if *includePrefix* is *true*)
+  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided **with** prefix, if *includePrefix* is *true*)
 - `parse` (type: *bool*|*object*, default: *object*):
   1. `false`: returns raw environment variable value
   1. `{}`: allows you to define which value types are going to be parsed.
@@ -147,7 +151,7 @@ Available Config Options:
 - `ignoreInvalidJSON` (type: *bool*, default: *true*): if set to false, throws exception when value is not a valid JSON input (parse.object or parse.array options must be set to true).
 - `filter` (type: *null*|*function*, default: *null*): filters environment variables (overrides prefix rule).
   1. `null`, don't filter varaibles.
-  1. `fn(envVarName, index)`, custom filter function (*envVarName* will be provided without any transformation).
+  1. `fn(envVarName, index)`, custom filter function (*envVarName* will be provided **without** any transformation).
   
 ## Use Case Example
 Recently, I used [Nightmare](https://github.com/segmentio/nightmare) for *acceptance testing* and had several environments which have different configurations.
