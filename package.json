@@ -89,6 +89,6 @@
     "pre-push": "^0.1.1"
   },
   "dependencies": {
-    "camelcase": "^4.1.0"
+    "camelcase": "5.0.0"
   }
 }
