@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (options) {
   var transformKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'camelcase';
 
+  console.log('process.env', process.env);
   var variables = {};
   var defaultOptions = {
     prefix: null,
