@@ -1,6 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
-import readEnv from '../dist';
+import {
+  initFakeEnvVariables,
+  cleanFakeEnvVariables,
+  PARSED_VALUES,
+} from './utils';
+import readEnv from '../dist-node';
 
 test.beforeEach(() => {
   initFakeEnvVariables();
@@ -25,7 +29,6 @@ test('Filters with function not with prefix parameter', (t) => {
   t.is(options.exampleSubInt, PARSED_VALUES.EXAMPLE_SUB_INT);
   t.is(options.exampleSubString, PARSED_VALUES.EXAMPLE_SUB_STRING);
 });
-
 
 test('Filters with function and removes prefix parameter', (t) => {
   const options = readEnv({

@@ -1,6 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
-import readEnv from '../dist';
+import {
+  initFakeEnvVariables,
+  cleanFakeEnvVariables,
+  PARSED_VALUES,
+} from './utils';
+import readEnv from '../dist-node';
 
 test.beforeEach(() => {
   initFakeEnvVariables();
@@ -12,24 +16,36 @@ function ucfirst(string) {
 
 test('Transforms keys to camelcase', (t) => {
   const options = readEnv('EXAMPLE');
-  t.true(options.convertsCamelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE);
+  t.true(
+    options.convertsCamelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE,
+  );
 });
 
 test('Transforms keys to lowercase', (t) => {
   const options = readEnv('EXAMPLE', 'lowercase');
-  t.true(options.converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE);
+  t.true(
+    options.converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE,
+  );
 });
 
 test('Transforms keys to uppercase', (t) => {
   const options = readEnv('EXAMPLE', 'uppercase');
-  t.true(options.CONVERTS_UPPERCASE === PARSED_VALUES.EXAMPLE_converts_uppercase);
+  t.true(
+    options.CONVERTS_UPPERCASE === PARSED_VALUES.EXAMPLE_converts_uppercase,
+  );
 });
 
 test('Custom transform function as second parameter', (t) => {
   const options = readEnv('EXAMPLE', ucfirst);
-  t.true(options.Converts_uppercase === PARSED_VALUES.EXAMPLE_converts_uppercase);
-  t.true(options.Converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE);
-  t.true(options.Converts_camelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE);
+  t.true(
+    options.Converts_uppercase === PARSED_VALUES.EXAMPLE_converts_uppercase,
+  );
+  t.true(
+    options.Converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE,
+  );
+  t.true(
+    options.Converts_camelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE,
+  );
 });
 
 test('Custom transform function defined in config', (t) => {
@@ -38,12 +54,18 @@ test('Custom transform function defined in config', (t) => {
     transformKey: ucfirst,
   });
 
-  t.true(options.Converts_uppercase === PARSED_VALUES.EXAMPLE_converts_uppercase);
-  t.true(options.Converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE);
-  t.true(options.Converts_camelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE);
+  t.true(
+    options.Converts_uppercase === PARSED_VALUES.EXAMPLE_converts_uppercase,
+  );
+  t.true(
+    options.Converts_lowercase === PARSED_VALUES.EXAMPLE_CONVERTS_LOWERCASE,
+  );
+  t.true(
+    options.Converts_camelcase === PARSED_VALUES.EXAMPLE_CONVERTS_CAMELCASE,
+  );
 });
 
-test('Doesn\'t transform key', (t) => {
+test("Doesn't transform key", (t) => {
   const options = readEnv('EXAMPLE', false);
   t.true(options.DoNT_TRanSFoRM_ME === PARSED_VALUES.EXAMPLE_DoNT_TRanSFoRM_ME);
 });
