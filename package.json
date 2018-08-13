@@ -2,15 +2,16 @@
   "name": "read-env",
   "version": "1.2.0",
   "description": "Convert environment variables into JSON object",
-  "browser": "dist-browser/index.js",
-  "main": "dist/index.js",
+  "browser": "dist-browser/index.min.js",
+  "main": "dist-node/index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:yatki/read-env.git"
   },
   "files": [
-    "dist/index.js",
-    "dist-browser/index.js"
+    "dist-node/index.js",
+    "dist-browser/index.js",
+    "dist-browser/index.min.js"
   ],
   "keywords": [
     "env",
@@ -88,12 +89,6 @@
       "babel-polyfill"
     ],
     "babel": "inherit"
-  },
-  "testling": {
-    "html": "browsertest/test.html",
-    "browsers": [
-      "chrome/latest"
-    ]
   },
   "devDependencies": {
     "ava": "^0.22.0",
