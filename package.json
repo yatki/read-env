@@ -27,18 +27,19 @@
   "homepage": "https://github.com/yatki/read-env",
   "scripts": {
     "preversion": "npm test",
-    "prepublish": "npm run build && npm test",
+    "prepublishOnly": "npm run build && npm test",
     "eslint:fix": "eslint . --fix --color",
     "eslint:check": "eslint . --color",
-    "build": "better-npm-run build",
-    "build:browser": "better-npm-run build:browser",
-    "compile": "better-npm-run compile",
+    "build": "npm run build:node && npm run build:browser && npm run uglify:browser",
+    "build:node": "bnr build:node",
+    "build:browser": "bnr build:browser",
+    "uglify:browser": "uglify:browser",
+    "compile": "bnr compile",
     "test": "nyc ava --verbose",
-    "test:coverage": "npm run compile && npm test",
-    "coveralls": "nyc npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "betterScripts": {
-    "build": {
+    "build:node": {
       "command": "babel --presets env -d dist-node/ src/",
       "env": {
         "NODE_ENV": "production",
@@ -47,6 +48,12 @@
     },
     "build:browser": {
       "command": "browserify ./dist-node/index.js -o ./dist-browser/index.js -s read-env --bare",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "uglify:browser": {
+      "command": "uglifyjs -nm -o ./dist-browser/index.min.js ./dist-browser/index.js",
       "env": {
         "NODE_ENV": "production"
       }
@@ -103,7 +110,7 @@
     "eslint-plugin-import": "^2.7.0",
     "nyc": "^11.2.1",
     "pre-push": "^0.1.1",
-    "testling": "^1.7.1"
+    "uglify-es": "^3.3.9"
   },
   "dependencies": {
     "camelcase": "5.0.0"
