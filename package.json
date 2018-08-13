@@ -34,7 +34,7 @@
     "build": "npm run build:node && npm run build:browser && npm run uglify:browser",
     "build:node": "bnr build:node",
     "build:browser": "bnr build:browser",
-    "uglify:browser": "uglify:browser",
+    "uglify:browser": "bnr uglify:browser",
     "compile": "bnr compile",
     "test": "nyc ava --verbose",
     "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
@@ -48,13 +48,13 @@
       }
     },
     "build:browser": {
-      "command": "browserify ./dist-node/index.js -o ./dist-browser/index.js -s read-env --bare",
+      "command": "browserify ./dist-node/index.js -o ./dist-browser/index.js -s read-env --node",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "uglify:browser": {
-      "command": "uglifyjs -nm -o ./dist-browser/index.min.js ./dist-browser/index.js",
+      "command": "uglifyjs -m -o ./dist-browser/index.min.js ./dist-browser/index.js",
       "env": {
         "NODE_ENV": "production"
       }
