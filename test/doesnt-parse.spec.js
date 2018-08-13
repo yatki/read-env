@@ -5,7 +5,7 @@ import {
   TEST_VARIABLES,
   PARSED_VALUES,
 } from './utils';
-import readEnv from '../dist-node';
+import readEnv from '../src';
 
 test.beforeEach(() => {
   initFakeEnvVariables();
