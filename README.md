@@ -6,6 +6,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master&)](https://coveralls.io/github/yatki/read-env?branch=master)
 [![npm](https://img.shields.io/npm/dt/read-env.svg)](https://www.npmjs.com/package/read-env)
 [![Dependencies](https://david-dm.org/yatki/read-env/status.svg)](https://david-dm.org/yatki/read-env)
+[![HitCount](http://hits.dwyl.io/yatki/read-env.svg)](http://hits.dwyl.io/yatki/read-env)
+[![Maintainability](https://api.codeclimate.com/v1/badges/620abf35783c517709ff/maintainability)](https://codeclimate.com/github/yatki/read-env/maintainability)
 
 ## Install
 
