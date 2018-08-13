@@ -1,6 +1,10 @@
 import test from 'ava';
-import { initFakeEnvVariables, cleanFakeEnvVariables, PARSED_VALUES } from './utils';
-import readEnv from '../dist';
+import {
+  initFakeEnvVariables,
+  cleanFakeEnvVariables,
+  PARSED_VALUES,
+} from './utils';
+import readEnv from '../src';
 
 test.beforeEach(() => {
   initFakeEnvVariables();

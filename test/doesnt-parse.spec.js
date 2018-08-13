@@ -1,12 +1,17 @@
 import test from 'ava';
-import { initFakeEnvVariables, cleanFakeEnvVariables, TEST_VARIABLES, PARSED_VALUES } from './utils';
-import readEnv from '../dist';
+import {
+  initFakeEnvVariables,
+  cleanFakeEnvVariables,
+  TEST_VARIABLES,
+  PARSED_VALUES,
+} from './utils';
+import readEnv from '../src';
 
 test.beforeEach(() => {
   initFakeEnvVariables();
 });
 
-test('Doesn\'t parse at all', (t) => {
+test("Doesn't parse at all", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: false,
@@ -21,7 +26,7 @@ test('Doesn\'t parse at all', (t) => {
   t.true(options.string === TEST_VARIABLES.EXAMPLE_STRING);
 });
 
-test('Doesn\'t parse object but parses rest', (t) => {
+test("Doesn't parse object but parses rest", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: {
@@ -40,8 +45,7 @@ test('Doesn\'t parse object but parses rest', (t) => {
   t.true(options.string === PARSED_VALUES.EXAMPLE_STRING);
 });
 
-
-test('Doesn\'t parse array but parses rest', (t) => {
+test("Doesn't parse array but parses rest", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: {
@@ -60,7 +64,7 @@ test('Doesn\'t parse array but parses rest', (t) => {
   t.true(options.string === PARSED_VALUES.EXAMPLE_STRING);
 });
 
-test('Doesn\'t parse int but parses rest', (t) => {
+test("Doesn't parse int but parses rest", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: {
@@ -79,7 +83,7 @@ test('Doesn\'t parse int but parses rest', (t) => {
   t.true(options.string === PARSED_VALUES.EXAMPLE_STRING);
 });
 
-test('Doesn\'t parse float but parses rest', (t) => {
+test("Doesn't parse float but parses rest", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: {
@@ -98,7 +102,7 @@ test('Doesn\'t parse float but parses rest', (t) => {
   t.true(options.string === PARSED_VALUES.EXAMPLE_STRING);
 });
 
-test('Doesn\'t parse boolean but parses rest', (t) => {
+test("Doesn't parse boolean but parses rest", (t) => {
   const options = readEnv({
     prefix: 'EXAMPLE',
     parse: {
@@ -116,32 +120,41 @@ test('Doesn\'t parse boolean but parses rest', (t) => {
   t.true(options.string === PARSED_VALUES.EXAMPLE_STRING);
 });
 
-
-test('Doesn\'t parse invalid Object', (t) => {
+test("Doesn't parse invalid Object", (t) => {
   initFakeEnvVariables({
     EXAMPLE_OBJECT_BROKEN: '{"prop"',
   });
 
-  const error = t.throws(() => readEnv({
-    prefix: 'EXAMPLE',
-    ignoreInvalidJSON: false,
-  }));
+  const error = t.throws(() =>
+    readEnv({
+      prefix: 'EXAMPLE',
+      ignoreInvalidJSON: false,
+    }),
+  );
 
-  t.is(error.message, 'Environment Variable "EXAMPLE_OBJECT_BROKEN" has invalid JSON input.');
+  t.is(
+    error.message,
+    'Environment Variable "EXAMPLE_OBJECT_BROKEN" has invalid JSON input.',
+  );
   delete process.env.EXAMPLE_OBJECT_BROKEN;
 });
 
-test('Doesn\'t parse invalid Array', (t) => {
+test("Doesn't parse invalid Array", (t) => {
   initFakeEnvVariables({
     EXAMPLE_ARRAY_BROKEN: '[1,2,3, "string"',
   });
 
-  const error = t.throws(() => readEnv({
-    prefix: 'EXAMPLE',
-    ignoreInvalidJSON: false,
-  }));
+  const error = t.throws(() =>
+    readEnv({
+      prefix: 'EXAMPLE',
+      ignoreInvalidJSON: false,
+    }),
+  );
 
-  t.is(error.message, 'Environment Variable "EXAMPLE_ARRAY_BROKEN" has invalid JSON input.');
+  t.is(
+    error.message,
+    'Environment Variable "EXAMPLE_ARRAY_BROKEN" has invalid JSON input.',
+  );
   delete process.env.EXAMPLE_OBJECT_BROKEN;
 });
 

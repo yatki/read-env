@@ -3,3 +3,7 @@ node_modules/
 coverage/
 .nyc_output/
 *.log
+
+dist-node/
+dist-browser/
+browsertest/
