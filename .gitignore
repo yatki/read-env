@@ -6,3 +6,4 @@ coverage/
 
 dist-node/
 dist-browser/
+browsertest/
