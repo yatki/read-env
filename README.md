@@ -149,10 +149,10 @@ Available Config Options:
       - `array` (type: *bool*, default: *true*): parse stringified array (value must be valid JSON input, see: [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_JSON.parse())).
       - `int` (type: *bool*, default: *true*): parse numbers into integer (value must be consist of only digits).
       - `float` (type: *bool*, default: *true*): parse numbers into float (value must be consist of only digits with decimal point).
-      - `bool` (type: *bool*, default: *true*): parse if value into bolean if it equals to *'true'* or *'false'* .
+      - `bool` (type: *bool*, default: *true*): parse if value into boolean if it equals to *'true'* or *'false'* .
 - `ignoreInvalidJSON` (type: *bool*, default: *true*): if set to false, throws exception when value is not a valid JSON input (parse.object or parse.array options must be set to true).
 - `filter` (type: *null*|*function*, default: *null*): filters environment variables (overrides prefix rule).
-  1. `null`, don't filter varaibles.
+  1. `null`, don't filter variables.
   1. `fn(envVarName, index)`, custom filter function (*envVarName* will be provided **without** any transformation).
   
 ## Use Case Example
