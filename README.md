@@ -2,12 +2,9 @@
 > Convert environment variables into JSON object with parsed values.
 
 [![NPM version](https://badge.fury.io/js/read-env.svg)](https://www.npmjs.com/package/read-env)
-[![Build Status](https://travis-ci.org/yatki/read-env.svg?branch=master)](https://travis-ci.org/yatki/read-env)
-[![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master&)](https://coveralls.io/github/yatki/read-env?branch=master)
 [![npm](https://img.shields.io/npm/dt/read-env.svg)](https://www.npmjs.com/package/read-env)
+[![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master&)](https://coveralls.io/github/yatki/read-env?branch=master)
 [![Dependencies](https://david-dm.org/yatki/read-env/status.svg)](https://david-dm.org/yatki/read-env)
-[![HitCount](http://hits.dwyl.io/yatki/read-env.svg)](http://hits.dwyl.io/yatki/read-env)
-[![Maintainability](https://api.codeclimate.com/v1/badges/620abf35783c517709ff/maintainability)](https://codeclimate.com/github/yatki/read-env/maintainability)
 
 ## Install
 
