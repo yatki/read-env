@@ -4,7 +4,6 @@ const defaultOptions: ReadEnvOptions = {
   source: process.env,
   format: 'camelcase',
   separator: '__',
-  sort: true,
   sanitize: {
     object: true,
     array: true,

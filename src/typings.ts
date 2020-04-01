@@ -20,7 +20,6 @@ interface ReadEnvOptions {
   includePrefix: boolean;
   format: boolean | Format | FormatFunction;
   sanitize: boolean | SanitizeOptions;
-  sort: boolean;
 }
 
 type ReadEnvResult = Record<string, any>;

@@ -10,16 +10,11 @@ const readEnv = (
     format,
     source,
     includePrefix,
-    sort,
     sanitize: sanitizeOptions,
     separator,
   } = getOptions(options);
 
   let keys = Object.keys(source);
-
-  if (sort) {
-    keys = keys.sort();
-  }
 
   // Filter keys by prefix
   if (typeof prefix === 'string' && prefix) {
