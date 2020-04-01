@@ -14,6 +14,7 @@ const isBool = (value: string): boolean => {
   return boolValue === 'true' || boolValue === 'false';
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sanitize = (value: string, options: SanitizeOptions): any => {
   // Sanitize Object
   if (options.object && isObject(value)) {
@@ -25,7 +26,7 @@ const sanitize = (value: string, options: SanitizeOptions): any => {
   }
 
   // Sanitize Array
-  if (options.object && isArray(value)) {
+  if (options.array && isArray(value)) {
     try {
       return JSON.parse(value);
     } catch (err) {
