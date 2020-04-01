@@ -26,10 +26,10 @@ const TEST_OUTPUT: Record<string, any> = {
   float: 5.2456,
   string: 'example',
   convertsCamelcase: 'camelCase',
-  ConvertsLowercase: 'lowercase',
+  convertsLowercase: 'lowercase',
   convertsUppercase: 'uppercase',
   exampleKey: 'exampleExample',
-  dontTransformMe: 'dontTransform',
+  doNtTRanSFoRmMe: 'dontTransform',
   subInt: 7,
   subString: 'subExample',
 };

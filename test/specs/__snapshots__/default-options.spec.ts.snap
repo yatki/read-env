@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match the snapshot 1`] = `
+Object {
+  "format": "camelcase",
+  "includePrefix": false,
+  "sanitize": Object {
+    "array": true,
+    "bool": true,
+    "float": true,
+    "int": true,
+    "object": true,
+  },
+  "separator": "__",
+  "source": Any<Object>,
+}
+`;
