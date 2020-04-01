@@ -1,7 +1,2 @@
-node_modules/**
-.idea/**
-reports/**
-dist-node/**
-dist-browser/**
-coverage/**
-.nyc_output/**
+node_modules/
+dist/
