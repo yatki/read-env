@@ -1,4 +1,4 @@
-type TransformFunction = (str: string) => string;
+type FormatFunction = (str: string) => string;
 
 interface Source {
   [key: string]: string | undefined;
@@ -12,15 +12,23 @@ interface SanitizeOptions {
   float?: boolean;
 }
 
-type Format = 'none' | 'camelcase' | 'pascalcase' | 'lowercase' | 'uppercase';
+type Format = 'camelcase' | 'pascalcase' | 'lowercase' | 'uppercase';
 
 interface ReadEnvOptions {
   source: Source;
-  deepObjectSeparator: string;
+  separator: string;
   includePrefix: boolean;
-  format: Format | TransformFunction;
+  format: boolean | Format | FormatFunction;
   sanitize: boolean | SanitizeOptions;
-  ignoreInvalidJSON: boolean;
+  sort: boolean;
 }
 
-export { ReadEnvOptions, Format, SanitizeOptions };
+type ReadEnvResult = Record<string, any>;
+
+export {
+  ReadEnvOptions,
+  Format,
+  SanitizeOptions,
+  FormatFunction,
+  ReadEnvResult,
+};
