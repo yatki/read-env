@@ -1,193 +1,279 @@
 # read-env
-> Convert environment variables into JSON object with parsed values.
+
+> Transform environment variables into JSON object with sanitized values.
 
 [![NPM version](https://badge.fury.io/js/read-env.svg)](https://www.npmjs.com/package/read-env)
 [![npm](https://img.shields.io/npm/dt/read-env.svg)](https://www.npmjs.com/package/read-env)
 [![Coverage Status](https://coveralls.io/repos/github/yatki/read-env/badge.svg?branch=master&)](https://coveralls.io/github/yatki/read-env?branch=master)
 [![Dependencies](https://david-dm.org/yatki/read-env/status.svg)](https://david-dm.org/yatki/read-env)
 
+> See docs for previous version [v1.3.x](https://github.com/yatki/read-env/tree/v1.3.0).
+
+Main purpose of this library is to allow developers to configure their applications with environment variables. See: [a use case example](#use-case-example).
+
+## What's New with v2.x 🚀
+
+- Migrated to Typescript, Yay! 🎉
+- Simplified API
+- With new `separator` option,nested object constructions are possible.
+- New `source` option allows you to use other objects, other than `process.env`
+
+## Migrating from v1.x to v2.x
+
+- `default` export is **deprecated**. Please use named export `readEnv` as below:
+
+```js
+const { readEnv } = require('read-env');
+
+// Or
+
+import { readEnv } from 'read-env';
+```
+
+- `parse` option was renamed as `sanitize`.
+- `transformKey` option was renamed as `format`.
+- Deprecated options: `ignoreInvalidJSON`, `prefix`, `filter`,
+
 ## Install
 
 ```
 npm install --save read-env
 ```
+
 or
+
 ```
 yarn add read-env
 ```
 
-## Basic Example
+## Basic Usage
 
-Let's say you have some environment variables starting with prefix "**EXAMPLE_**" like below:
-```
-EXAMPLE_OBJECT_KEY= '{"prop": "value"}',
-EXAMPLE_ARRAY_KEY= '[1,2,3, "string", {"prop": "value"}, 5.2]',
-EXAMPLE_TRUE_KEY= 'true',
-EXAMPLE_FALSE_KEY= 'false',
-EXAMPLE_INT_KEY= '5',
-EXAMPLE_FLOAT_KEY= '5.2',
-EXAMPLE_STRING_KEY= 'example',
-```
+Let's say you have some environment variables starting with prefix "**EXAMPLE\_**" like below:
 
-your-app.js
-```javascript
-import readEnv from 'read-env';
-
-const options = readEnv('EXAMPLE');
-console.log(options);
-```
-
-Output:
-```javascript
-{ 
-  arrayKey: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
-  falseKey: false,
-  floatKey: 5.2,
-  intKey: 5,
-  objectKey: { prop: 'value' },
-  stringKey: 'example',
-  trueKey: true 
-}
-
+```text
+EXAMPLE_OBJECT='{"prop": "value"}'
+EXAMPLE_ARRAY='[1,2,3, "string", {"prop": "value"}, 5.2]'
+EXAMPLE_INVALID_OBJECT='{"prop": }"value"}'
+EXAMPLE_INVALID_ARRAY='[1,2,3, "string", ]{"prop": "value"}, 5.2]'
+EXAMPLE_TRUE='true'
+EXAMPLE_FALSE='false'
+EXAMPLE_INT='5'
+EXAMPLE_NEGATIVE_INT='-11'
+EXAMPLE_FLOAT='5.2456'
+EXAMPLE_NEGATIVE_FLOAT='-2.4567'
+EXAMPLE_INT_ZERO='0'
+EXAMPLE_FLOAT_ZERO='0.00'
+EXAMPLE_NEGATIVE_INT_ZERO='-0'
+EXAMPLE_NEGATIVE_FLOAT_ZERO='-0.00'
+EXAMPLE_STRING='example'
+EXAMPLE_DEEP__OBJECT__PROPERTY='value'
 ```
 
-## Usage
+app.js
 
-### `readEnv(prefix = null, transformKey = 'camelcase')`
-You can pass a string prefix as first paremeter like below:
+```js
+import { readEnv } from 'read-env';
 
-```javascript
-const options = readEnv('EXAMPLE');
-// Output:
-/**
-{ 
-  arrayKey: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
-  falseKey: false,
-  floatKey: 5.2,
-  intKey: 5,
-  objectKey: { prop: 'value' },
-  stringKey: 'example',
-  trueKey: true 
-}
-*/
-
-const optionsLower = readEnv('EXAMPLE', 'lowercase');
-// Output:
-/**
-{ 
-  array_key: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
-  false_key: false,
-  float_key: 5.2,
-  int_key: 5,
-  object_key: { prop: 'value' },
-  string_key: 'example',
-  true_key: true 
-}
-*/
-
-function ucfirst(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-const optionsUcfirst = readEnv('EXAMPLE', ucfirst);
-// Output:
-/**
-{ 
-  Array_key: [ 1, 2, 3, 'string', { prop: 'value' }, 5.2 ],
-  False_key: false,
-  Float_key: 5.2,
-  Int_key: 5,
-  Object_key: { prop: 'value' },
-  String_key: 'example',
-  True_key: true 
-}
-*/
+const result = readEnv('EXAMPLE');
+console.log(result);
 ```
 
-### `readEnv(config)`
-You can pass whole config object:
+Result:
 
-```javascript
-function ucfirst(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+```json
+{
+  "object": { "prop": "value" },
+  "array": [1, 2, 3, "string", { "prop": "value" }, 5.2],
+  "invalidObject": "{\"prop\": }\"value\"}",
+  "invalidArray": "[1,2,3, \"string\", ]{\"prop\": \"value\"}, 5.2]",
+  "true": true,
+  "false": false,
+  "int": 5,
+  "negativeInt": -11,
+  "float": 5.2456,
+  "negativeFloat": -2.4567,
+  "intZero": 0,
+  "floatZero": 0,
+  "negativeIntZero": -0,
+  "negativeFloatZero": -0,
+  "string": "example",
+  "deep": {
+    "object": {
+      "property": "value"
+    }
+  }
 }
+```
 
-const options = readEnv({
-  prefix: 'EXAMPLE',
-  includePrefix: false,
-  transformKey: ucfirst,
-  parse: {
-    array: false, //not gonna parse arrays
-  }, //still gonna parse object, int, float and boolean
+## API
+
+### `readEnv(prefix?: string, options: ReadEnvOptions = {})`
+
+**Input:**
+
+- `prefix` (type: `string`, default: `undefined`): filters environment variables by prefix
+- `options` (type: `ReadEnvOptions`, default: `{}`): options object to change function's behaviour
+
+**Returns:** `object` (type: _Record<string,any>_), returns the instance, so add methods are chainable.
+
+### Options
+
+**Default Options:**
+
+```js
+{
+  "source": process.env,
+  "format": "camelcase",
+  "separator": "__",
+  "sanitize": {
+    "object": true,
+    "array": true,
+    "bool": true,
+    "int": true,
+    "float": true
+  },
+  "includePrefix": false
+}
+```
+
+- [`options.source`](#optionssource)
+- [`options.format`](#optionsformat)
+- [`options.separator`](#optionsseparator)
+- [`options.sanitize`](#optionssanitize)
+- [`options.includePrefix`](#optionsincludeprefix)
+
+#### `options.source`
+
+- Type: `object`
+- Default: `process.env`
+
+The source object that will be filtered, sanitized and formatted.
+
+**Type Signature:**
+
+```ts
+interface Source {
+  [key: string]: string | undefined;
+}
+```
+
+#### `options.format`
+
+- Type: `boolean | string | function`
+- Default: `camelcase`
+
+Format environment variable name.
+
+It's value can be:
+
+- a `boolean`, if set to `false`, formatting is disabled
+- a `string`, one of which `camelcase`, `pascalcase`, `lowercase`, `uppercase`
+- a `function`, with `(rawVarName: string) => string` type signature
+
+#### `options.separator`
+
+- Type: `boolean | string`
+- Default: `__`
+
+Allows you construct nested objects from environment variable name.
+
+- If set to `false`, constructing nested objects is disabled
+
+**Example:**
+
+```js
+const { readEnv } = require('read-env');
+
+const testInput = {
+  EXAMPLE_DEEP__OBJECT_PROPERTY1: 'value1',
+  EXAMPLE_DEEP__OBJECT_PROPERTY2: 'value2',
+};
+
+const result = readEnv('EXAMPLE', {
+  source: testInput,
 });
+console.log(result);
 ```
 
- You can also pass your own filter function:
-```javascript
-const options = readEnv({
-  filter: (envVarName) => envVarName.indexOf('EXAMPLE') > 0 && envVarName === 'ANOTHER_REQUIRED_KEY',
-});
+Result:
+
+```json
+{
+  "deep": {
+    "object": {
+      "property1": "value1",
+      "property2": "value2"
+    }
+  }
+}
 ```
 
-## Config
+#### `options.sanitize`
 
-Available Config Options:
-- `prefix` (type: *string*, default: *null*): filters environment variables by prefix
-- `includePrefix` (type: *bool*, default: *false*): set true if you want to keep prefix in property names.
-- `transformKey` (type: *bool*|*string*|*function*, default: *'camelcase'*): transform environment variable name.
-  1. `false`, doesn't transform the environment variable name.
-  1. `camelcase`, transforms variable name to camelCase.
-  1. `lowercase`, transforms variable name to lowercase.
-  1. `uppercase`, transforms variable name to UPPERCASE.
-  1. `fn(varName)`, you can write your own transformer function (*varName* will be provided **with** prefix, **if** *includePrefix* is *true*)
-- `parse` (type: *bool*|*object*, default: *object*):
-  1. `false`: returns raw environment variable value
-  1. `{}`: allows you to define which value types are going to be parsed.
-      - `object` (type: *bool*, default: *true*): parse stringified object (value must be valid JSON input, see: [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_JSON.parse())).
-      - `array` (type: *bool*, default: *true*): parse stringified array (value must be valid JSON input, see: [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_JSON.parse())).
-      - `int` (type: *bool*, default: *true*): parse numbers into integer (value must be consist of only digits).
-      - `float` (type: *bool*, default: *true*): parse numbers into float (value must be consist of only digits with decimal point).
-      - `bool` (type: *bool*, default: *true*): parse if value into boolean if it equals to *'true'* or *'false'* .
-- `ignoreInvalidJSON` (type: *bool*, default: *true*): if set to false, throws exception when value is not a valid JSON input (parse.object or parse.array options must be set to true).
-- `filter` (type: *null*|*function*, default: *null*): filters environment variables (overrides prefix rule).
-  1. `null`, don't filter variables.
-  1. `fn(envVarName, index)`, custom filter function (*envVarName* will be provided **without** any transformation).
-  
+- Type: `boolean | object`,
+- Default: `{}`
+
+Sanitize object consists of following properties which is used to
+
+- `object` (type: _bool_, default: _true_): sanitize stringified object
+
+  > value must be valid JSON input, see: [JSON.parse](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_JSON.parse()>).
+
+- `array` (type: _bool_, default: _true_): sanitize stringified array
+  > value must be valid JSON input, see: [JSON.parse](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Using_JSON.parse()>).
+- `int` (type: _bool_, default: _true_): sanitize numbers into integer
+  > value must be consist of only digits.
+- `float` (type: _bool_, default: _true_): sanitize numbers into float
+  > value must be consist of only digits with decimal point.
+- `bool` (type: _bool_, default: _true_): sanitize value into boolean
+  > value must have case insensitive match with "true" or "false".
+
+#### `options.includePrefix`
+
+- Type: `boolean`
+- Default: `false`
+
+If set to true, keeps the given prefix in property names.
+
 ## Use Case Example
-Recently, I used [Nightmare](https://github.com/segmentio/nightmare) for *acceptance testing* and had several environments which have different configurations.
- 
-Instead of writing a code like below:
 
-```javascript
+In past, I used [Nightmare](https://github.com/segmentio/nightmare) for _acceptance testing_ and tests had different configurations based on the
+environment they were running on.
+
+So, I simply used read-env, and nightmare is fully configurable with environment variables :)
+
+```js
+import Nightmare from 'nightmare';
+import { readEnv } from 'read-env';
+
+const nightmareConfig = readEnv('MY_NIGHTMARE');
+const nightmare = Nightmare(nightmareConfig);
+```
+
+Instead of writing code like below:
+
+```js
 import Nightmare from 'nightmare';
 
 const nightmare = Nightmare({
-  show: process.env.X_NIGHTMARE_SHOW || false,
-  width:  process.env.X_NIGHTMARE_WIDTH || 1280,
-  height:  process.env.X_NIGHTMARE_HEIGHT || 720,
-  typeInterval:  process.env.X_NIGHTMARE_TYPE_INTERVAL || 50,
+  show: process.env.MY_NIGHTMARE_SHOW || false,
+  width: process.env.MY_NIGHTMARE_WIDTH || 1280,
+  height: process.env.MY_NIGHTMARE_HEIGHT || 720,
+  typeInterval: process.env.MY_NIGHTMARE_TYPE_INTERVAL || 50,
   //... other properties go forever
 });
 ```
 
-I wrote this, and nightmare is fully configurable with environment variables :)
-```javascript
-import Nightmare from 'nightmare';
-import readEnv from 'read-env';
-
-const nightmareConfig = readEnv('X_NIGHTMARE');
-const nightmare = Nightmare(nightmareConfig);
-```
-        
 ## Contribution
 
-As always, I'm open to any contribution and would like to hear your feedback. 
+As always, I'm open to any contribution and would like to hear your feedback.
 
 ### Just an important reminder:
 
-If you are planning to contribute to **any** open source project, 
-before starting development, please **always open an issue** and **make a proposal first**. 
+If you are planning to contribute to **any** open source project,
+before starting development, please **always open an issue** and **make a proposal first**.
 This will save you from working on features that are eventually going to be rejected for some reason.
 
 ## LICENCE
 
-MIT (c) 2017 Mehmet Yatkı
+MIT (c) 2020 Mehmet Yatkı
