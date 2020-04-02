@@ -1,6 +1,6 @@
 {
   "name": "read-env",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Transform environment variables into JSON object with sanitized values.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -11,15 +11,20 @@
     "url": "git+ssh://git@github.com:yatki/read-env.git"
   },
   "files": [
-    "dist-node/index.js",
-    "dist-browser/index.js",
-    "dist-browser/index.min.js"
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENCE"
   ],
   "keywords": [
     "env",
     "environment variables",
     "parse",
     "JSON.parse",
+    "sanitize",
+    "process.env",
+    "config",
+    "conf",
     "read"
   ],
   "author": "Mehmet Yatkı",
