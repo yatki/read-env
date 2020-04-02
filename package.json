@@ -1,7 +1,7 @@
 {
   "name": "read-env",
   "version": "1.3.0",
-  "description": "Convert environment variables into JSON object",
+  "description": "Transform environment variables into JSON object with sanitized values.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/yatki/read-env",
   "scripts": {
     "preversion": "npm test",
-    "prepublishOnly": "npm run lint && npm test && npm run build && npm run coveralls",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
     "prebuild": "rimraf dist",
     "build": "rollup -c rollup.config.ts",
     "lint": "eslint .",
