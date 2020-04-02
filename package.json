@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/yatki/read-env",
   "scripts": {
-    "preversion": "npm test",
+    "preversion": "npm run lint && npm test",
     "prepublishOnly": "npm run lint && npm test && npm run build",
     "prebuild": "rimraf dist",
     "build": "rollup -c rollup.config.ts",
