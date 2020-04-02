@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Given options argument was not provided should use default options and read "process.env" as source 1`] = `
+exports[`Given options argument was not provided should sanitize all the values 1`] = `
 Object {
   "array": Array [
     1,
@@ -12,6 +12,11 @@ Object {
     },
     5.2,
   ],
+  "convertsCamelcase": "camelCase",
+  "convertsLowercase": "lowercase",
+  "convertsUppercase": "uppercase",
+  "dontTransformMe": "dontTransform",
+  "exampleKey": "exampleExample",
   "false": false,
   "float": 5.2456,
   "int": 5,
@@ -21,6 +26,9 @@ Object {
     "prop": "value",
   },
   "string": "example",
+  "subInt": 7,
+  "subString": "subExample",
   "true": true,
+  "undefined": undefined,
 }
 `;

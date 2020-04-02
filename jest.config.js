@@ -9,7 +9,7 @@ module.exports = {
 
   coveragePathIgnorePatterns: ['/node_modules|dist/', 'rollup.config.ts'],
 
-  collectCoverageFrom: ['src/*.ts'],
+  collectCoverageFrom: ['src/**/*.ts'],
 
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

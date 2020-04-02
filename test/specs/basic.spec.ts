@@ -1,4 +1,4 @@
-import { initEnvVariables, TEST_OUTPUT } from '../test-utils';
+import { initEnvVariables, ALL_INPUT, ALL_OUTPUT } from '../test-utils';
 import { readEnv } from '../../src';
 import { defaultOptions } from '../../src/utils';
 
@@ -13,7 +13,16 @@ describe('Given options argument was not provided', () => {
 
     // Assert
     expect(resultWithoutOptions).toEqual(resultWithDefaultOptions);
-    expect(resultWithoutOptions).toEqual(TEST_OUTPUT);
-    expect(resultWithoutOptions).toMatchSnapshot();
+  });
+
+  it('should sanitize all the values', () => {
+    // Act
+    const result = readEnv('EXAMPLE', {
+      source: ALL_INPUT,
+    });
+
+    // Assert
+    expect(result).toEqual(ALL_OUTPUT);
+    expect(result).toMatchSnapshot();
   });
 });

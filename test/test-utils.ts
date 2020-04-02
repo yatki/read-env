@@ -1,4 +1,7 @@
-const TEST_INPUT: Record<string, string> = {
+type Input = Record<string, string | undefined>;
+type Output = Record<string, any>;
+
+const SANITIZE_INPUT: Input = {
   EXAMPLE_OBJECT: '{"prop": "value"}',
   EXAMPLE_ARRAY: '[1,2,3, "string", {"prop": "value"}, 5.2]',
   EXAMPLE_INVALID_OBJECT: '{"prop": }"value"}',
@@ -10,7 +13,7 @@ const TEST_INPUT: Record<string, string> = {
   EXAMPLE_STRING: 'example',
 };
 
-const TEST_OUTPUT: Record<string, any> = {
+const SANITIZE_OUTPUT: Output = {
   object: { prop: 'value' },
   array: [1, 2, 3, 'string', { prop: 'value' }, 5.2],
   invalidObject: '{"prop": }"value"}',
@@ -22,7 +25,7 @@ const TEST_OUTPUT: Record<string, any> = {
   string: 'example',
 };
 
-const EXTRA_INPUT = {
+const FORMAT_INPUT: Input = {
   EXAMPLE_CONVERTS_CAMELCASE: 'camelCase',
   EXAMPLE_CONVERTS_LOWERCASE: 'lowercase',
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -32,26 +35,31 @@ const EXTRA_INPUT = {
   EXAMPLE_DoNT_TRanSFoRM_ME: 'dontTransform',
   EXAMPLE_SUB_INT: '7',
   EXAMPLE_SUB_STRING: 'subExample',
+  EXAMPLE_UNDEFINED: undefined,
 };
 
-const EXTRA_OUTPUT = {
+const FORMAT_OUTPUT: Output = {
   convertsCamelcase: 'camelCase',
   convertsLowercase: 'lowercase',
   convertsUppercase: 'uppercase',
   exampleKey: 'exampleExample',
-  doNtTRanSFoRmMe: 'dontTransform',
+  dontTransformMe: 'dontTransform',
   subInt: 7,
   subString: 'subExample',
+  undefined,
 };
 
-const cleanEnvVariables = (vars = TEST_INPUT) => {
+const ALL_INPUT = { ...SANITIZE_INPUT, ...FORMAT_INPUT };
+const ALL_OUTPUT = { ...SANITIZE_OUTPUT, ...FORMAT_OUTPUT };
+
+const cleanEnvVariables = (vars = ALL_INPUT) => {
   const testVariableKeys = Object.keys(vars);
   testVariableKeys.forEach((key) => {
     delete process.env[key];
   });
 };
 
-const initEnvVariables = (vars = TEST_INPUT) => {
+const initEnvVariables = (vars = ALL_OUTPUT) => {
   cleanEnvVariables();
 
   const testVariableKeys = Object.keys(vars);
@@ -61,10 +69,12 @@ const initEnvVariables = (vars = TEST_INPUT) => {
 };
 
 export {
-  TEST_INPUT,
-  TEST_OUTPUT,
-  EXTRA_INPUT,
-  EXTRA_OUTPUT,
+  SANITIZE_INPUT,
+  SANITIZE_OUTPUT,
+  FORMAT_INPUT,
+  FORMAT_OUTPUT,
+  ALL_INPUT,
+  ALL_OUTPUT,
   initEnvVariables,
   cleanEnvVariables,
 };
