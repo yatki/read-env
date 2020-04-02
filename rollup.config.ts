@@ -26,7 +26,7 @@ const config = [
     plugins: [typescript(), resolve(), terser({ output: { comments: false } })],
   },
   {
-    input: 'src/index.ts',
+    input: 'src/index.umd.ts',
     output: {
       file: pkg.browser,
       format: 'umd',
