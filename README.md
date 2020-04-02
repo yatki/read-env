@@ -24,10 +24,10 @@ Main purpose of this library is to allow developers to configure their applicati
 
 ```js
 const { readEnv } = require('read-env');
-
 // Or
-
 import { readEnv } from 'read-env';
+// Or in browser
+window.readEnv('EXAMPLE');
 ```
 
 - `parse` option was renamed as `sanitize`.
