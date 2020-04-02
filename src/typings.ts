@@ -15,7 +15,7 @@ interface SanitizeOptions {
 type Format = 'camelcase' | 'pascalcase' | 'lowercase' | 'uppercase';
 
 interface ReadEnvOptions {
-  source: Source;
+  source?: Source;
   separator: boolean | string;
   includePrefix: boolean;
   format: boolean | Format | FormatFunction;

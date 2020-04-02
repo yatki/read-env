@@ -1,7 +1,6 @@
 import { ReadEnvOptions, SanitizeOptions } from '../typings';
 
 const defaultOptions: ReadEnvOptions = {
-  source: process.env,
   format: 'camelcase',
   separator: '__',
   sanitize: {

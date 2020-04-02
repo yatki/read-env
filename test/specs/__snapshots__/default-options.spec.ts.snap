@@ -12,6 +12,5 @@ Object {
     "object": true,
   },
   "separator": "__",
-  "source": Any<Object>,
 }
 `;

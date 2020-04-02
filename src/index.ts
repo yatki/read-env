@@ -8,7 +8,7 @@ const readEnv = (
   // Options
   const {
     format,
-    source,
+    source = process.env,
     includePrefix,
     sanitize: sanitizeOptions,
     separator,
