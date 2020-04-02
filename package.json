@@ -11,15 +11,20 @@
     "url": "git+ssh://git@github.com:yatki/read-env.git"
   },
   "files": [
-    "dist-node/index.js",
-    "dist-browser/index.js",
-    "dist-browser/index.min.js"
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENCE"
   ],
   "keywords": [
     "env",
     "environment variables",
     "parse",
     "JSON.parse",
+    "sanitize",
+    "process.env",
+    "config",
+    "conf",
     "read"
   ],
   "author": "Mehmet Yatkı",
