@@ -77,4 +77,23 @@ describe('Given options argument was not provided', () => {
     // Assert
     expect(result).toEqual(testOutput);
   });
+
+  it('should trim the env variable value', () => {
+    // Arrange
+    const testInput = {
+      EXAMPLE__mY_key1: '    dummyValue1    ',
+      EXAMPLE_____MY_KEY2: '   dummyValue 2    ',
+    };
+    const testOutput = {
+      myKey1: 'dummyValue1',
+      myKey2: 'dummyValue 2',
+    };
+    // Act
+    const result = readEnv('EXAMPLE', {
+      source: testInput,
+    });
+
+    // Assert
+    expect(result).toEqual(testOutput);
+  });
 });

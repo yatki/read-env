@@ -61,7 +61,13 @@ describe('Given sanitize.array is set to false', () => {
 describe('Given sanitize.int is set to false', () => {
   it('should return integer values as it is', () => {
     // Arrange
-    const testOutput = { ...SANITIZE_OUTPUT, int: SANITIZE_INPUT.EXAMPLE_INT };
+    const testOutput = {
+      ...SANITIZE_OUTPUT,
+      int: SANITIZE_INPUT.EXAMPLE_INT,
+      negativeInt: SANITIZE_INPUT.EXAMPLE_NEGATIVE_INT,
+      intZero: SANITIZE_INPUT.EXAMPLE_INT_ZERO,
+      negativeIntZero: SANITIZE_INPUT.EXAMPLE_NEGATIVE_INT_ZERO,
+    };
 
     // Act
     const result = readEnv('EXAMPLE', {
@@ -82,6 +88,9 @@ describe('Given sanitize.float is set to false', () => {
     const testOutput = {
       ...SANITIZE_OUTPUT,
       float: SANITIZE_INPUT.EXAMPLE_FLOAT,
+      negativeFloat: SANITIZE_INPUT.EXAMPLE_NEGATIVE_FLOAT,
+      floatZero: SANITIZE_INPUT.EXAMPLE_FLOAT_ZERO,
+      negativeFloatZero: SANITIZE_INPUT.EXAMPLE_NEGATIVE_FLOAT_ZERO,
     };
 
     // Act
