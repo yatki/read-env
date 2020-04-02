@@ -1,9 +1,5 @@
-.idea/
 node_modules/
 coverage/
-.nyc_output/
-*.log
+dist/
 
-dist-node/
-dist-browser/
-browsertest/
+*.log

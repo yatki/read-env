@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given options argument was not provided should sanitize all the values 1`] = `
+Object {
+  "array": Array [
+    1,
+    2,
+    3,
+    "string",
+    Object {
+      "prop": "value",
+    },
+    5.2,
+  ],
+  "convertsCamelcase": "camelCase",
+  "convertsLowercase": "lowercase",
+  "convertsUppercase": "uppercase",
+  "dontTransformMe": "dontTransform",
+  "exampleKey": "exampleExample",
+  "false": false,
+  "float": 5.2456,
+  "floatZero": 0,
+  "int": 5,
+  "intZero": 0,
+  "invalidArray": "[1,2,3, \\"string\\", ]{\\"prop\\": \\"value\\"}, 5.2]",
+  "invalidObject": "{\\"prop\\": }\\"value\\"}",
+  "negativeFloat": -2.4567,
+  "negativeFloatZero": -0,
+  "negativeInt": -11,
+  "negativeIntZero": -0,
+  "object": Object {
+    "prop": "value",
+  },
+  "string": "example",
+  "subInt": 7,
+  "subString": "subExample",
+  "true": true,
+  "undefined": undefined,
+}
+`;

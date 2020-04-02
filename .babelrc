@@ -1,9 +1,0 @@
-{
-  "presets": ["env"],
-  "ignore": "test/**/*.spec.js",
-  "env": {
-    "development": {
-      "sourceMaps": "inline"
-    }
-  }
-}
