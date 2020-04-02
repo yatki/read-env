@@ -1,5 +1,5 @@
 import { readEnv } from '../../../src';
-import { FORMAT_INPUT, FORMAT_OUTPUT } from '../../test-utils';
+import { FORMAT_INPUT, FORMAT_OUTPUT, ucFirst } from '../../test-utils';
 
 describe('Given format is set to false', () => {
   it('should return all the keys as it is', () => {
@@ -35,7 +35,6 @@ describe('Given format is "pascalcase"', () => {
     const testInput = {
       EXAMPLE_MY_KEY1: 'dummyValue',
       EXAMPLE_MY_KEY2: 'dummyValue',
-      // eslint-disable-next-line @typescript-eslint/camelcase
       EXAMPLE_MY_kEy3: 'dummyValue',
     };
 
@@ -64,9 +63,7 @@ describe('Given format is "lowercase"', () => {
     };
 
     const testOutput = {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       my_key1: 'dummyValue',
-      // eslint-disable-next-line @typescript-eslint/camelcase
       my_key2: 'dummyValue',
     };
     // Act
@@ -84,7 +81,6 @@ describe('Given format is "uppercase"', () => {
   it('should format keys uppercase style', () => {
     // Arrange
     const testInput = {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       EXAMPLE_mY_key1: 'dummyValue',
       EXAMPLE_MY_KEY2: 'dummyValue',
     };
@@ -107,24 +103,51 @@ describe('Given format is "uppercase"', () => {
 describe('Given format is custom function', () => {
   it('should return all the keys as it is', () => {
     // Arrange
-    const ucFirst = (string: string): string =>
-      string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     const testInput = {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       EXAMPLE_mY_key1: 'dummyValue',
       EXAMPLE_MY_KEY2: 'dummyValue',
     };
 
     const testOutput = {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       My_key1: 'dummyValue',
-      // eslint-disable-next-line @typescript-eslint/camelcase
       My_key2: 'dummyValue',
     };
     // Act
     const result = readEnv('EXAMPLE', {
       source: testInput,
       format: ucFirst,
+    });
+
+    // Assert
+    expect(result).toEqual(testOutput);
+  });
+});
+
+describe('Given input contains nested object', () => {
+  it('should format all nested keys', () => {
+    // Arrange
+
+    const testInput = {
+      EXAMPLE_my_key1__my_sub_key1__my_sub_sub_key1: 'dummyValue1',
+      EXAMPLE_MY_KEY2__my_sub_key2__my_sub_sub_key2: 'dummyValue2',
+    };
+
+    const testOutput = {
+      myKey1: {
+        mySubKey1: {
+          mySubSubKey1: 'dummyValue1',
+        },
+      },
+      myKey2: {
+        mySubKey2: {
+          mySubSubKey2: 'dummyValue2',
+        },
+      },
+    };
+    // Act
+    const result = readEnv('EXAMPLE', {
+      source: testInput,
+      format: 'camelcase',
     });
 
     // Assert

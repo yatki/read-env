@@ -28,10 +28,8 @@ const SANITIZE_OUTPUT: Output = {
 const FORMAT_INPUT: Input = {
   EXAMPLE_CONVERTS_CAMELCASE: 'camelCase',
   EXAMPLE_CONVERTS_LOWERCASE: 'lowercase',
-  // eslint-disable-next-line @typescript-eslint/camelcase
   EXAMPLE_converts_uppercase: 'uppercase',
   EXAMPLE_EXAMPLE_KEY: 'exampleExample',
-  // eslint-disable-next-line @typescript-eslint/camelcase
   EXAMPLE_DoNT_TRanSFoRM_ME: 'dontTransform',
   EXAMPLE_SUB_INT: '7',
   EXAMPLE_SUB_STRING: 'subExample',
@@ -67,6 +65,9 @@ const initEnvVariables = (vars = ALL_OUTPUT) => {
     process.env[key] = vars[key];
   });
 };
+const ucFirst = (string: string, lowerRest = true): string =>
+  string.charAt(0).toUpperCase() +
+  (lowerRest ? string.slice(1).toLowerCase() : string.slice(1));
 
 export {
   SANITIZE_INPUT,
@@ -77,4 +78,5 @@ export {
   ALL_OUTPUT,
   initEnvVariables,
   cleanEnvVariables,
+  ucFirst,
 };

@@ -16,7 +16,7 @@ type Format = 'camelcase' | 'pascalcase' | 'lowercase' | 'uppercase';
 
 interface ReadEnvOptions {
   source: Source;
-  separator: string;
+  separator: boolean | string;
   includePrefix: boolean;
   format: boolean | Format | FormatFunction;
   sanitize: boolean | SanitizeOptions;
