@@ -191,6 +191,7 @@ const testInput = {
 
 const result = readEnv('EXAMPLE', {
   source: testInput,
+  separator: '_',
 });
 console.log(result);
 ```
