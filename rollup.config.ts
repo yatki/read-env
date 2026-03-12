@@ -15,6 +15,7 @@ const config = [
         file: pkg.main,
         format: 'cjs',
         sourcemap: true,
+        exports: 'named',
       },
       {
         file: pkg.module,
